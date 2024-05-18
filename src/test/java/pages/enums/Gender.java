@@ -1,4 +1,4 @@
-package pages.enams;
+package pages.enums;
 
 public enum Gender {
 

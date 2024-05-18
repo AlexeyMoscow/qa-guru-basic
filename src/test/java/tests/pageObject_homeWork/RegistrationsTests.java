@@ -5,7 +5,7 @@ import pages.components.CreatedUserFrom;
 import pages.RegistrationPage;
 import tests.BaseTest;
 
-import static pages.enams.Gender.MALE;
+import static pages.enums.Gender.MALE;
 
 public class RegistrationsTests extends BaseTest {
 

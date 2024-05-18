@@ -1,8 +1,9 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import models.User;
 import pages.components.Calendar;
-import pages.enams.Gender;
+import pages.enums.Gender;
 
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.visible;
@@ -34,6 +35,32 @@ public class RegistrationPage {
         registrationFrom.shouldBe(visible);
     }
 
+    public void fillRegistrationFormWithMinimumData(User user) {
+        setFirstName(user.getFirstName())
+                .setLastName(user.getLastName())
+                .setGenderFromRandom(user.getGender())
+                .setPhone(user.getPhone())
+                .submitForm();
+    }
+
+    public void fillRegistrationFormWitFullData(User user) {
+        setFirstName(user.getFirstName())
+                .setLastName(user.getLastName())
+                .setEmail(user.getEmail())
+                .setGenderFromRandom(user.getGender())
+                .setPhone(user.getPhone())
+                .setDateOfBirth(user.getBirthDay(), user.getBirthMonth(), user.getBirthYear())
+                .setSubject(user.getUserSubject())
+                .setHobbies(user.getHobby())
+                .uploadPicture(user.getPicture())
+                .setAddress(user.getAddress())
+                .setState(user.getState())
+                .setCity(user.getCity())
+                .submitForm();
+    }
+
+
+
     public RegistrationPage setFirstName(String firstName) {
         firstNameInput.setValue(firstName);
         return this;
@@ -51,6 +78,11 @@ public class RegistrationPage {
 
     public RegistrationPage setGender(Gender sex) {
         genderRadioButton.$(byText(sex.getTitle())).click();
+        return this;
+    }
+
+    public RegistrationPage setGenderFromRandom(String sex) {
+        genderRadioButton.$(byText(sex)).click();
         return this;
     }
 
