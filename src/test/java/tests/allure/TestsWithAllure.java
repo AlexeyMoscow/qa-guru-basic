@@ -1,21 +1,23 @@
-package tests;
+package tests.allure;
 
-import io.qameta.allure.Description;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import models.User;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import pages.components.CreatedUserFrom;
+import tests.BaseTest;
 
 import static pages.enums.Gender.MALE;
 
-public class UserCreationWithRandomDataTest extends BaseTest {
+public class TestsWithAllure extends BaseTest {
 
     RegistrationPage registrationPage = new RegistrationPage();
     CreatedUserFrom createdUserFrom = new CreatedUserFrom();
 
     @Test
-    @Description("Проверка заполнения формы - только обязательные поля")
     public void userRegistrationWithMinimumData() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
         User user = User.getUserWithMinimumData();
         registrationPage
                 .openPage();
@@ -28,7 +30,6 @@ public class UserCreationWithRandomDataTest extends BaseTest {
     }
 
     @Test
-    @Description("Проверка заполнения формы - все поля")
     public void userRegistrationWithAllData() {
         User user = User.getUserWithFullData();
         registrationPage.openPage();
@@ -49,7 +50,6 @@ public class UserCreationWithRandomDataTest extends BaseTest {
     }
 
     @Test
-    @Description("Проверка валидации формы - обязательные поля НЕ заполнены")
     public void userRegistrationMissingRequiredField() {
         registrationPage
                 .openPage();
